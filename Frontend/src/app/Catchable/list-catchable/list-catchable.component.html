@@ -1,0 +1,16 @@
+<div class='container'>
+    <div class="row">
+    <div *ngFor='let catchable of catchableList' class="col s6 m4">
+      <div class="card horizontal">
+        <div class="card-image">
+          <img [src]="catchable.icon">
+        </div>
+        <div class="card-stacked">
+          <div class="card-content">
+            <p>{{ catchable.name }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
