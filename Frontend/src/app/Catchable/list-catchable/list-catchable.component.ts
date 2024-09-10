@@ -9,65 +9,58 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './list-catchable.component.html',
 })
-export class ListCatchableComponent implements OnInit{
+export class ListCatchableComponent implements OnInit {
+  catchableList: Catchable[] | undefined;
+  selectedType: string = 'fish'; // Type sélectionné par défaut
 
-  catchableList : Catchable[]|undefined;
+  constructor(private catchableService: CatchableService) {}
 
-  constructor (private catchableService : CatchableService ){}
-  
-  ngOnInit(){
-   this.catchableService.getCatchableList().subscribe({
-    next: (data : Catchable[]) => {
-      this.catchableList = data;
-    }, 
-      error: (err)=> {
-        console.error('Faille to load Catchable List', err)
-      }
-   })
+  ngOnInit() {
+    this.loadList(this.selectedType); // Charger la liste des poissons par défaut
   }
 
-  getFishList(){
-    this.catchableService.getFishList().subscribe({
-      next: (fish : Catchable[]) => {
-        this.catchableList = fish;
-      }, 
-        error: (err)=> {
-          console.error('Faille to load Fish List', err)
-        }
-     })
+  loadList(type: string) {
+    console.log(`Loading list for type: ${type}`); // Débogage
+    this.selectedType = type; // Met à jour le type sélectionné
+    switch (type) {
+      case 'fish':
+        this.catchableService.getFishList().subscribe({
+          next: (data: Catchable[]) => {
+            console.log('Fish list loaded:', data); // Débogage
+            this.catchableList = data;
+          },
+          error: (err) => console.error('Failed to load Fish List', err)
+        });
+        break;
+      case 'bug':
+        this.catchableService.getBugList().subscribe({
+          next: (data: Catchable[]) => {
+            console.log('Bug list loaded:', data); // Débogage
+            this.catchableList = data;
+          },
+          error: (err) => console.error('Failed to load Bug List', err)
+        });
+        break;
+      case 'sea':
+        this.catchableService.getSeaCreatureList().subscribe({
+          next: (data: Catchable[]) => {
+            console.log('Sea Creature list loaded:', data); // Débogage
+            this.catchableList = data;
+          },
+          error: (err) => console.error('Failed to load Sea Creature List', err)
+        });
+        break;
+      case 'now':
+        this.catchableService.getCatchableNow().subscribe({
+          next: (data: Catchable[]) => {
+            console.log('Catchable Now list loaded:', data); // Débogage
+            this.catchableList = data;
+          },
+          error: (err) => console.error('Failed to load Catchable Now', err)
+        });
+        break;
+      default:
+        console.error('Unknown type');
+    }
   }
-
-  getBugList(){
-    this.catchableService.getBugList().subscribe({
-      next: (bug : Catchable[]) => {
-        this.catchableList = bug;
-      }, 
-        error: (err)=> {
-          console.error('Faille to load Bug List', err)
-        }
-     })
-  }
-
-  getSeaCreatureList(){
-    this.catchableService.getSeaCreatureList().subscribe({
-      next: ( sea_creature : Catchable[]) => {
-        this.catchableList = sea_creature;
-      }, 
-        error: (err)=> {
-          console.error('Faille to load Sea Creature List', err)
-        }
-     })
-  }
-
-  getCatchableNow(){
-    this.catchableService.getCatchableNow().subscribe({
-      next: ( catchable_now : Catchable[]) => {
-        this.catchableList = catchable_now;
-      }, 
-        error: (err)=> {
-          console.error('Faille to load Catchable Now', err)
-        }
-     })
-  }
-
 }

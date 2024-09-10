@@ -15,7 +15,7 @@ export class CatchableService {
   catchableList : Catchable[]|undefined;
 
   getCatchableList(): Observable<Catchable[]>{
-    return this.http.get<Catchable[]>(this.url+'/allcatchableitems').pipe(
+    return this.http.get<Catchable[]>(`${this.url}/allcatchableitems`).pipe(
       map(reponse => {
         return reponse
       })
@@ -23,7 +23,7 @@ export class CatchableService {
   }
 
   getFishList(): Observable <Catchable[]>{
-    return this.http.get<Catchable[]>(this.url+'/fishes').pipe(
+    return this.http.get<Catchable[]>(`${this.url}/fishes`).pipe(
       map(reponse => {
         return reponse
       })
@@ -31,7 +31,7 @@ export class CatchableService {
   }
 
   getBugList(): Observable <Catchable[]>{
-    return this.http.get<Catchable[]>(this.url+'/bugs').pipe(
+    return this.http.get<Catchable[]>(`${this.url}/bugs`).pipe(
       map(reponse => {
         return reponse
       })
@@ -39,7 +39,7 @@ export class CatchableService {
   }
 
   getSeaCreatureList(): Observable <Catchable[]>{
-    return this.http.get<Catchable[]>(this.url+'/seacreatures').pipe(
+    return this.http.get<Catchable[]>(`${this.url}/seacreatures`).pipe(
       map(reponse => {
         return reponse
       })
@@ -47,7 +47,7 @@ export class CatchableService {
   }
 
   getCatchableNow(): Observable <Catchable[]>{
-    return this.http.get<Catchable[]>(this.url+'/catchablenow').pipe(
+    return this.http.get<Catchable[]>(`${this.url}/catchablenow`).pipe(
       map(reponse => {
         return reponse
       })
