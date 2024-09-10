@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 @RequestMapping("")
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 
 public class CatchableController {
 

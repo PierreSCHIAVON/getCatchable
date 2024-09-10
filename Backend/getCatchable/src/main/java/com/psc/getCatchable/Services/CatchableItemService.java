@@ -18,9 +18,6 @@ import java.util.stream.Collectors;
 @Service
 public class CatchableItemService {
 
-
-
-
     // Map pour convertir les mois abrégés en objets Month
     private static final Map<String, Month> MONTH_MAP = new HashMap<>();
 
@@ -41,7 +38,8 @@ public class CatchableItemService {
 
     // Méthode pour vérifier si l'heure actuelle est dans la plage
     private boolean isTimeWithinRange(String timeRange, LocalTime currentTime) {
-        String[] parts = timeRange.split("–");
+        timeRange = timeRange.replace("–", "-"); // Remplacer le tiret long
+        String[] parts = timeRange.split("-");
         if (parts.length == 2) {
             String start = parts[0].trim();
             String end = parts[1].trim();
@@ -63,26 +61,23 @@ public class CatchableItemService {
         return false;
     }
 
+
     // Méthode pour vérifier si le mois actuel est dans la plage de mois
     private boolean isMonthWithinRange(String monthRange, LocalDate currentDate) {
-        // Nettoyer le préfixe et extraire les mois
+        monthRange = monthRange.replace("–", "-"); // Remplacer le tiret long
         String months = monthRange.replace("North: ", "").trim();
-        String[] monthParts = months.split("–");
+        String[] monthParts = months.split("-"); // Utiliser le tiret simple
+
         if (monthParts.length == 2) {
-            // Convertir les noms de mois abrégés en objets Month
             Month startMonth = parseMonth(monthParts[0].trim());
             Month endMonth = parseMonth(monthParts[1].trim());
 
-            // Récupérer le mois actuel
             Month currentMonth = currentDate.getMonth();
 
-            // Comparer les mois
             if (startMonth != null && endMonth != null) {
                 if (startMonth.ordinal() <= endMonth.ordinal()) {
-                    // La plage de mois ne traverse pas l'année
                     return currentMonth.ordinal() >= startMonth.ordinal() && currentMonth.ordinal() <= endMonth.ordinal();
                 } else {
-                    // La plage de mois traverse l'année
                     return currentMonth.ordinal() >= startMonth.ordinal() || currentMonth.ordinal() <= endMonth.ordinal();
                 }
             }
