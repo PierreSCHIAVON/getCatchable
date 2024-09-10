@@ -1,6 +1,7 @@
 package com.psc.getCatchable.Services;
 
 import com.psc.getCatchable.Entity.Catchable;
+import com.psc.getCatchable.Entity.CatchableType;
 import org.springframework.stereotype.Service;
 
 
@@ -16,6 +17,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class CatchableItemService {
+
+
+
 
     // Map pour convertir les mois abrégés en objets Month
     private static final Map<String, Month> MONTH_MAP = new HashMap<>();

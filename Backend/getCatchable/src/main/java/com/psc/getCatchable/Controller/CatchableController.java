@@ -1,6 +1,7 @@
 package com.psc.getCatchable.Controller;
 
 import com.psc.getCatchable.Entity.Catchable;
+import com.psc.getCatchable.Entity.CatchableType;
 import com.psc.getCatchable.Repositories.CatchablesRepository;
 import com.psc.getCatchable.Services.CatchableItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@RequestMapping("/catchables")
+@RequestMapping("")
 @RestController
-@CrossOrigin(origins = "*")
 
 public class CatchableController {
 
@@ -25,7 +25,7 @@ public class CatchableController {
     @PostMapping
     public void createCatchable(@RequestBody Catchable catchable){catchableRepository.save(catchable);}
 
-    @GetMapping
+    @GetMapping("/allcatchableitems")
     public List<Catchable> getcatchables(){return catchableRepository.findAll();}
 
 
@@ -36,6 +36,22 @@ public class CatchableController {
     public List<Catchable> getFilteredCatchableItems() {
         List<Catchable> allCatchables = catchableRepository.findAll();
         return catchableItemService.getFilteredItems(allCatchables);
+    }
+
+    @GetMapping("/fishes")
+    public List<Catchable> getFishes() {
+        return catchableRepository.findByType(CatchableType.FISH);
+    }
+
+    @GetMapping("/bugs")
+    public List<Catchable> getBugsList() {
+        return catchableRepository.findByType(CatchableType.BUG);
+    }
+
+
+    @GetMapping("/seacreatures")
+    public List<Catchable> getSeaCreatures() {
+        return catchableRepository.findByType(CatchableType.SEA_CREATURE);
     }
 
 

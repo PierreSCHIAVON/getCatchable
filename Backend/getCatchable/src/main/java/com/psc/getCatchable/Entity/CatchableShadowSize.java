@@ -10,6 +10,7 @@ public enum CatchableShadowSize {
     Very_large,
     Huge,
     Finned,
+    None,
 
 
 }

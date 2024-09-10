@@ -35,4 +35,5 @@ public class Catchable {
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
     private CatchableType type;
+
 }
